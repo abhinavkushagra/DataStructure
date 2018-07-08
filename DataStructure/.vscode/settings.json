@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\bash.exe",
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "One Dark Pro",
+    "javac-linter.javac": "C:\\Program Files\\Java\\jdk-10.0.1\\bin\\javac.exe",
+    "git.ignoreLimitWarning": true
+}
