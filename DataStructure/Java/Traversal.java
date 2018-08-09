@@ -94,7 +94,7 @@ class Traversal{
         }
     }
 
-    private static  void levelOrderTraversing(Tree tree){
+    public static  void levelOrderTraversing(Tree tree){
         if(tree == null)
             return;
         Queue<Tree> queue = new LinkedList<>();
@@ -108,3 +108,4 @@ class Traversal{
                 queue.add(current.right);
         }
     }
+}

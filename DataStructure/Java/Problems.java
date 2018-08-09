@@ -7,6 +7,12 @@ class Problems{
         System.out.println("Solution 2 : "+ problem2(tree));
         System.out.println("Solution 3 : "+ problem3(tree, 8));
         System.out.println("Solution 4 : "+ problem4(tree, 1));
+        Traversal t = new Traversal();
+        t.levelOrderTraversing(tree);
+        problem5(tree, 8);
+        System.out.println("\nSolution 5 : "+ "Added");
+        t.levelOrderTraversing(tree);
+        System.out.println("Solution 6 : "+ problem6(tree));
 
     }
 
@@ -76,4 +82,37 @@ class Problems{
         }
         return false;
     }
+    public static void problem5(Tree tree, int value){
+        //Problem 5: Give an algorithm for inserting an element into binary tree
+        Tree temp = new Tree();
+        temp.data = value;
+        if(tree == null){
+            tree = temp;
+            return;
+        }
+        else{
+            Queue<Tree> queue = new LinkedList<>();
+            queue.add(tree);
+            while(!queue.isEmpty()){
+                Tree node = queue.poll();
+                if(node.left == null){
+                    node.left = temp;
+                    return;
+                }
+                else
+                    queue.add(node.left);
+                if(node.right == null){
+                    node.right = temp;
+                    return;
+                }
+                else
+                    queue.add(node.right);
+            }
+        }
+    }
+    public static int problem6(Tree tree){
+        if(tree == null)
+            return 0;
+        return problem6(tree.left) + problem6(tree.right) + 1;
+    } 
 }
