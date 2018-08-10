@@ -13,6 +13,8 @@ class Problems{
         System.out.println("\nSolution 5 : "+ "Added");
         t.levelOrderTraversing(tree);
         System.out.println("Solution 6 : "+ problem6(tree));
+        System.out.println("Solution 7 : "+ problem7(tree));
+
 
     }
 
@@ -115,4 +117,24 @@ class Problems{
             return 0;
         return problem6(tree.left) + problem6(tree.right) + 1;
     } 
+    public static int problem7(Tree tree){
+        int count = 1;
+        if(tree == null)
+            return 0;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        while(!queue.isEmpty()){
+            Tree temp = queue.poll();
+            if(temp.left != null){
+                count++;
+                queue.add(temp.left);
+            }
+            if(temp.right != null){
+                count++;
+                queue.add(temp.right);
+            }
+        }
+        return count;
+
+    }
 }
