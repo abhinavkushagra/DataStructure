@@ -1,5 +1,7 @@
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
 class Problems{
     public static void main(String[] args){
         Tree tree = Tree.createTree();   
@@ -12,9 +14,10 @@ class Problems{
         problem5(tree, 8);
         System.out.println("\nSolution 5 : "+ "Added");
         t.levelOrderTraversing(tree);
-        System.out.println("Solution 6 : "+ problem6(tree));
+        System.out.println("\nSolution 6 : "+ problem6(tree));
         System.out.println("Solution 7 : "+ problem7(tree));
-
+        System.out.println("Solution 8 : " );
+        problem8(tree);
 
     }
 
@@ -113,11 +116,13 @@ class Problems{
         }
     }
     public static int problem6(Tree tree){
+        //Problem 6 : Give an algorithm for finding the size of binary tree
         if(tree == null)
             return 0;
         return problem6(tree.left) + problem6(tree.right) + 1;
     } 
     public static int problem7(Tree tree){
+        //Problem 7 : Give an algorithm for finding the size of binary tree without recursion
         int count = 1;
         if(tree == null)
             return 0;
@@ -136,5 +141,24 @@ class Problems{
         }
         return count;
 
+    }
+    public static void problem8(Tree tree){
+        //Problem 8 : Give an algorithm for printing the level order data in reverse order
+        if(tree == null)
+            return;
+        List<Integer> nodes = new ArrayList<>();
+        Queue<Tree> queue = new LinkedList<>();
+        int index = 0;
+        queue.add(tree);
+        while(!queue.isEmpty()){
+            Tree temp = queue.poll();
+                nodes.add(temp.data);
+            if(temp.right != null)
+                queue.add(temp.right);
+            if(temp.left != null)
+                queue.add(temp.left);
+        }
+        for(int i = nodes.size() - 1; i >= 0; i--)
+            System.out.print(nodes.get(i)+" ");
     }
 }
