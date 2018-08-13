@@ -18,6 +18,12 @@ class Problems{
         System.out.println("Solution 7 : "+ problem7(tree));
         System.out.println("Solution 8 : " );
         problem8(tree);
+        System.out.println("\nSolution 10 : " + problem10(tree));
+        System.out.println("Solution 11 : " + problem11(tree));
+        System.out.println("Solution 12 : "+ problem12(tree).data);
+        problem13(tree, 14);
+        System.out.println("Solution 13 : ");
+        t.levelOrderTraversing(tree);
 
     }
 
@@ -160,5 +166,111 @@ class Problems{
         }
         for(int i = nodes.size() - 1; i >= 0; i--)
             System.out.print(nodes.get(i)+" ");
+    }
+
+    public static int problem10(Tree tree){
+        //Problem 10 : Give an algorithm for finding the height (or depth) of the binary tree.
+        if(tree == null)
+            return 0;
+        int left = problem10(tree.left) + 1;
+        int right = problem10(tree.right) + 1;
+        if(left > right)
+            return left;
+        else
+            return right;
+    }
+
+    public static int problem11(Tree tree){
+        //Problem 11 : Can we solve Problem-10 without recursion?
+        int height = 0;
+        if(tree == null)
+            return height;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        while(!queue.isEmpty()){
+            int count = queue.size();
+            while(count-- != 0){
+                Tree temp = queue.poll();
+                if(temp.left != null)
+                    queue.add(temp.left);
+                if(temp.right != null)
+                    queue.add(temp.right);
+            }
+            height++;
+        }
+        return height;
+    }
+
+    public static Tree problem12(Tree tree){
+        //Problem 12 : Give an algorithm for finding the deepest node of the binary tree
+        if(tree == null)
+            return null;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        Tree temp = null;
+        while(!queue.isEmpty()){
+            temp = queue.poll();
+            if(temp.left != null)
+                queue.add(temp.left);
+            if(temp.right != null)
+                queue.add(temp.right);
+        }
+        return temp;
+    }
+    public static void problem13(Tree tree, int value){
+        //Problem 13 : Give an algorithm for finding the deepest node of the binary tree.
+        if(tree == null){
+            System.out.println("Tree Empty");
+            return;
+        }
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        Tree deepestNode = problem12(tree);
+        Tree temp = null;
+        boolean check = false;
+        while(!queue.isEmpty()){
+            temp = queue.poll();
+            if(temp.data == value){
+                check = true;
+                break;
+            }
+            if(temp.left != null){
+                queue.add(temp.left);
+            }
+            if(temp.right != null){
+                queue.add(temp.right);
+            }
+        }
+        if(check){
+            temp.data = deepestNode.data;
+            Tree toBeDeletedNode = null;
+            queue.clear();
+            queue.add(tree);
+            while(!queue.isEmpty()){
+                toBeDeletedNode = queue.poll();
+                if(toBeDeletedNode.left != null){
+                    if(toBeDeletedNode.left == deepestNode){
+                        toBeDeletedNode.left = null;
+                        System.out.println("Deleted");
+                        return;
+                    }
+                    queue.add(toBeDeletedNode.left);
+                }
+                if(toBeDeletedNode.right != null){
+                    if(toBeDeletedNode.right == deepestNode){
+                        toBeDeletedNode.right = null;
+                        System.out.println("Deleted");
+                        return;
+                    }
+                    queue.add(toBeDeletedNode.right);
+                }
+
+            }
+
+        }
+        else
+            System.out.println("Node Not FOUND!");
+        
+        
     }
 }
