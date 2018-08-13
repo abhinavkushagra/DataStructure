@@ -21,9 +21,12 @@ class Problems{
         System.out.println("\nSolution 10 : " + problem10(tree));
         System.out.println("Solution 11 : " + problem11(tree));
         System.out.println("Solution 12 : "+ problem12(tree).data);
-        problem13(tree, 14);
-        System.out.println("Solution 13 : ");
-        t.levelOrderTraversing(tree);
+       // problem13(tree, 14);
+        //System.out.println("Solution 13 : ");
+        //t.levelOrderTraversing(tree);
+        System.out.println("Solution 14 : No. of leaf Nodes = "+ problem14(tree));
+        System.out.println("Solution 14 : No. of full Nodes = "+ problem15(tree));
+        
 
     }
 
@@ -218,7 +221,7 @@ class Problems{
         return temp;
     }
     public static void problem13(Tree tree, int value){
-        //Problem 13 : Give an algorithm for finding the deepest node of the binary tree.
+        //Problem 13 : Give an algorithm for deleting an element(assuming data is given) from binary tree.
         if(tree == null){
             System.out.println("Tree Empty");
             return;
@@ -272,5 +275,41 @@ class Problems{
             System.out.println("Node Not FOUND!");
         
         
+    }
+    public static int problem14(Tree tree){
+        //Problem 14 : Give an algorithm for finding the number of leaves in the binary tree without using recursion
+        int leaf = 0;
+        if(tree == null)
+            return leaf;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        while(!queue.isEmpty()){
+            Tree temp = queue.poll();
+            if(temp.left == null && temp.right == null)
+                leaf++;
+            if(temp.left != null)
+                queue.add(temp.left);
+            if(temp.right != null)
+                queue.add(temp.right);
+        }
+        return leaf;
+    }
+    public static int problem15(Tree tree){
+        //Problem 15 : Give an algorithm for finding the number of full nodes in the binary tree without using recursion
+        int fullnode = 0;
+        if(tree == null)
+            return fullnode;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        while(!queue.isEmpty()){
+            Tree temp = queue.poll();
+            if(temp.left != null && temp.right != null)
+                fullnode++;
+            if(temp.left != null)
+                queue.add(temp.left);
+            if(temp.right != null)
+                queue.add(temp.right);
+        }
+        return fullnode;
     }
 }
