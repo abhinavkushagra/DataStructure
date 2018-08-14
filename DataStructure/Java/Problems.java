@@ -312,4 +312,71 @@ class Problems{
         }
         return fullnode;
     }
+
+    public static int problem16(Tree tree){
+        //Problem 16 : Give an algorithm for finding the number of half nodes in the binary tree without using recursion
+        int halfnode = 0;
+        if(tree == null)
+            return halfnode;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        while(!queue.isEmpty()){
+            Tree temp = queue.poll();
+            if((temp.left != null && temp.right == null) || (temp.left == null && temp.right != null))
+                halfnode++;
+            if(temp.left != null)
+                queue.add(temp.left);
+            if(temp.right != null)
+                queue.add(temp.right);
+        }
+        return halfnode;
+    }
+
+    public static boolean problem17(Tree tree1, Tree tree2){
+        //Problem 17 : Given two binary trees, return true if they are structually identical.
+        if(tree1 == null && tree2 == null)
+            return true;
+        if(tree1 == null || tree2 == null)
+            return false;
+        return (tree1.data == tree2.data) && (problem17(tree1.left, tree2.left) && (problem17(tree1.right, tree2.right));
+    }
+
+    public static int problem18(Tree tree){
+        static int max = -1;
+        if(tree == null)
+            return 0;
+        int left_length = problem18(tree.left) + 1;
+        int right_length = problem18(tree.right) + 1;
+        if(left_length + right_length > max)
+            max = left_length + right_length
+        return max;
+    }
+    public static int problem19(Tree tree){
+        int max_sum = 0;
+        int max_level = 0;
+        if(tree == null)
+            return level;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        int level = 0;
+        while(!queue.isEmpty()){
+            int sum = 0;
+            int size = queue.size();
+            Tree temp = queue.poll();
+            while(size-- > 0){
+                sum += temp.data;
+                if(temp.left != null)
+                    queue.add(tree.left);
+                if(temp.right != null)
+                    queue.add(tree.right);
+            }
+            level++;
+            if(sum > max)
+                max_level = level;
+        }
+        return max_level;
+    }
+    public static int problem20(Tree tree){
+        
+    }
 }
