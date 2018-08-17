@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 class Problems{
     public static void main(String[] args){
+        int max = -1;
         Tree tree = Tree.createTree();   
         System.out.println("Solution 1 : "+ problem1(tree)); 
         System.out.println("Solution 2 : "+ problem2(tree));
@@ -25,7 +26,23 @@ class Problems{
         //System.out.println("Solution 13 : ");
         //t.levelOrderTraversing(tree);
         System.out.println("Solution 14 : No. of leaf Nodes = "+ problem14(tree));
-        System.out.println("Solution 14 : No. of full Nodes = "+ problem15(tree));
+        System.out.println("Solution 15 : No. of full Nodes = "+ problem15(tree));
+        System.out.println("Solution 16 : No. of half Nodes = "+ problem16(tree));
+        Tree newNode1 = new Tree();
+        Tree newNode2 = new Tree();
+        Tree newNode3 = new Tree();
+        newNode1.data = 1;
+        newNode2.data = 2;
+        newNode3.data = 3;
+        newNode1.left = newNode2;
+        newNode1.right = newNode3; 
+        System.out.println("Solution 17 : Are the two trees equal ?" + problem17(tree, newNode1));
+        System.out.println("Solution 18 : Diameter of the tree = " + problem18(tree, max));
+        System.out.println("Solution 19 : Level that has maximum sum =" + problem19(tree));
+        System.out.println("Solution 20 :");
+        problem20(tree, "");
+        System.out.println("Solution 21 :");
+        problem21(tree,14,0);
         
 
     }
@@ -338,45 +355,76 @@ class Problems{
             return true;
         if(tree1 == null || tree2 == null)
             return false;
-        return (tree1.data == tree2.data) && (problem17(tree1.left, tree2.left) && (problem17(tree1.right, tree2.right));
+        return (tree1.data == tree2.data) && (problem17(tree1.left, tree2.left)) && (problem17(tree1.right, tree2.right));
     }
 
-    public static int problem18(Tree tree){
-        static int max = -1;
+    public static int problem18(Tree tree,int max){
+        //Problem 18 : Give an algorithm for finding the diameter of the binary tree. The diameter of a tree (sometimes called the width) is the number of nodes on the longest path between two leaves in the tree
         if(tree == null)
             return 0;
-        int left_length = problem18(tree.left) + 1;
-        int right_length = problem18(tree.right) + 1;
+        int left_length = problem18(tree.left, max);
+        int right_length = problem18(tree.right, max);
         if(left_length + right_length > max)
-            max = left_length + right_length
-        return max;
+            max = left_length + right_length;
+        return Math.max(left_length, right_length) + 1;
     }
     public static int problem19(Tree tree){
+        //Problem 19 : Give an algorithm for finding the level that has the maximum sum in the binary tree
         int max_sum = 0;
         int max_level = 0;
         if(tree == null)
-            return level;
+            return -1;
         Queue<Tree> queue = new LinkedList<>();
         queue.add(tree);
         int level = 0;
         while(!queue.isEmpty()){
             int sum = 0;
             int size = queue.size();
-            Tree temp = queue.poll();
-            while(size-- > 0){
+            while(!queue.isEmpty() && size-- > 0){
+                Tree temp = queue.poll();
                 sum += temp.data;
                 if(temp.left != null)
-                    queue.add(tree.left);
+                    queue.add(temp.left);
                 if(temp.right != null)
-                    queue.add(tree.right);
+                    queue.add(temp.right);
             }
             level++;
-            if(sum > max)
+            if(sum > max_sum){
+                max_sum = sum;
                 max_level = level;
+            }
         }
         return max_level;
     }
-    public static int problem20(Tree tree){
-        
+
+    public static void problem20(Tree tree, String path){
+        //Problem 20 : Give a binary tree, print out all its root-to-leaf paths
+        if(tree == null)
+            return;
+        if(tree.left == null && tree.right == null){
+            System.out.println(path + tree.data);
+            return;
+        }
+        path += tree.data + "-";
+        problem20(tree.left, path);
+        problem20(tree.right, path);
+    }
+
+    public static void problem21(Tree tree, int value, int sum){
+        //Problem 21 : Give an algorithm for checking the existence of path with given sum.That means, given a sum check whether there exists a path from root to any of the nodes.
+        if(tree == null)
+            return;
+        if(tree.left == null && tree.right == null){
+            sum += tree.data;
+            if(sum == value){
+                System.out.println("True");
+                return;
+            }
+            else
+                sum = 0;
+        }
+        sum += tree.data;
+        problem21(tree.left, value, sum);
+        problem21(tree.right, value, sum);
     }
 }
