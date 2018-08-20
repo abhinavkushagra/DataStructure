@@ -41,8 +41,16 @@ class Problems{
         System.out.println("Solution 19 : Level that has maximum sum =" + problem19(tree));
         System.out.println("Solution 20 :");
         problem20(tree, "");
-        System.out.println("Solution 21 :");
-        problem21(tree,14,0);
+        System.out.println("Solution 21 : "+ problem21(tree,14,0));
+        System.out.println("Solution 22 : "+ problem22(tree));
+        System.out.println("Solution 23 : "+ problem23(tree));
+        t.levelOrderTraversing(tree);
+        System.out.println("\nSolution 24 : ");
+        problem24(tree);
+        t.levelOrderTraversing(tree);
+        System.out.println("\nSolution 25 : ");
+
+        
         
 
     }
@@ -410,21 +418,64 @@ class Problems{
         problem20(tree.right, path);
     }
 
-    public static void problem21(Tree tree, int value, int sum){
+    public static boolean problem21(Tree tree, int value, int sum){
         //Problem 21 : Give an algorithm for checking the existence of path with given sum.That means, given a sum check whether there exists a path from root to any of the nodes.
         if(tree == null)
-            return;
+            return false;
         if(tree.left == null && tree.right == null){
             sum += tree.data;
             if(sum == value){
-                System.out.println("True");
-                return;
+                return true;
             }
-            else
+            else{
                 sum = 0;
+                return false;
+            }
         }
         sum += tree.data;
-        problem21(tree.left, value, sum);
-        problem21(tree.right, value, sum);
+        return (problem21(tree.left, value, sum) || problem21(tree.right, value, sum));
+    }
+    public static int problem22(Tree tree){
+        //Problem 22 : Give an algorithm for finding the sum of all elements in binary tree.
+        if(tree == null)
+            return 0;
+        return tree.data + problem22(tree.left) + problem22(tree.right);
+    }
+
+    public static int problem23(Tree tree){
+        //Problem 23 : Can we solve Problem 22 without recursion?
+        if(tree == null)
+            return 0;
+        int sum = 0;
+        Queue<Tree> queue = new LinkedList<>();
+        queue.add(tree);
+        while(!queue.isEmpty()){
+            Tree temp = queue.poll();
+            sum += temp.data;
+            if(temp.left != null)
+                queue.add(temp.left);
+            if(temp.right != null)
+                queue.add(temp.right);
+        }
+        return sum;
+    }
+    public static void problem24(Tree tree){
+        if(tree == null)
+            return;
+        Tree temp = tree.left;
+        tree.left = tree.right;
+        tree.right = temp;
+        problem24(tree.left);
+        problem24(tree.right);
+    }
+    public static boolean problem25(Tree tree1, Tree tree2){
+        if(tree1 == null && tree2 == null)
+            return true;
+        if(tree1 == null || tree2 == null)
+            return false;
+        if(tree1.data != tree2.data)
+            return false;
+        return problem25(tree1.left, tree2.right)||problem25(tree1.right, tree1.left);
+        
     }
 }
