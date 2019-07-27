@@ -40,8 +40,25 @@ class Main{
         for(Integer x : column_sum.keySet()){
             System.out.println(column_sum.get(x) + " ");
         }
-
+        Node root = problem33("ILILL".toCharArray() , 0);
+        printZigZag(root);
     }
+
+    public static Node problem33(char[] node, int index){
+        //Problem 33: Given a tree with a special property where leaves are represented with 'L' and internal node with 'I'.
+        //Also, asssume that each node has either 0 or 2 children. Given preorder traversal of this tree, construct the tree.
+        if(index == node.length)
+            return null;
+        Node new_node = new Node(node[index]);
+        if(node[index] == 'L')  
+            return new_node;
+        index++;
+        new_node.left = problem33(node, index);
+        index++;
+        new_node.right = problem33(node, index);
+        return new_node;
+    }
+
     public static void verticalSum(Node root, int column){
         if(root == null)
             return;
@@ -59,7 +76,7 @@ class Main{
             Node node = current.pop();
             Node first_node = !flag ? node.right: node.left;
             Node second_node = flag ? node.right: node.left;  
-            System.out.print(node.data + " ");
+            System.out.print(((char) node.data) + " ");
             if(first_node != null){
                 next.push(first_node);
             }
