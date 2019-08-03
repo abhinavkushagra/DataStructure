@@ -42,12 +42,23 @@ class Main{
             System.out.println(column_sum.get(x) + " ");
         }
         Node root = problem33("ILILL".toCharArray() , 0);
-        printZigZag(root);
-        problem34(node1);
-        for(Node temp = node4; temp != null; temp = temp.nextSibling){
+        printZigZag(root); */
+        problem35(node1);
+        for(Node temp = node2; temp != null; temp = temp.nextSibling){
             System.out.println(temp.data);
-        }*/
+        }
         
+    }
+    public static void problem35(Node root){
+        //Alternate for problem34
+        if(root == null)
+            return;
+        if(root.left != null)
+            root.left.nextSibling = root.right;
+        if(root.right != null)
+        root.right.nextSibling = root.nextSibling != null ? root.nextSibling.left : null;
+        problem35(root.left);
+        problem35(root.right);
     }
     public static void problem34(Node root){
         //Problem 34: Given a binary tree with three pointers (left, right and nextSibling), give an algorithm for filling the 
