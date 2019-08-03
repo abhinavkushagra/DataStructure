@@ -7,6 +7,7 @@ class Node{
     Node left;
     int data;
     Node right;
+    Node nextSibling;
     Node(int data){
         this.data = data;
     }
@@ -36,14 +37,41 @@ class Main{
         node1.left.right.right = null;
         node1.right.left.right = null;
         node1.right.right.right = null;
-        verticalSum(node1, 0);
+        /*verticalSum(node1, 0);
         for(Integer x : column_sum.keySet()){
             System.out.println(column_sum.get(x) + " ");
         }
         Node root = problem33("ILILL".toCharArray() , 0);
         printZigZag(root);
+        problem34(node1);
+        for(Node temp = node4; temp != null; temp = temp.nextSibling){
+            System.out.println(temp.data);
+        }*/
+        
     }
-
+    public static void problem34(Node root){
+        //Problem 34: Given a binary tree with three pointers (left, right and nextSibling), give an algorithm for filling the 
+        //nextSibling pointers assuming they are NULL initially.
+        if(root == null)
+            return;
+        Queue<Node> queue  = new LinkedList<>();
+        queue.add(root);
+        queue.add(null);
+        while(!queue.isEmpty()){
+            Node temp = queue.remove();
+            if(temp == null){
+                if(!queue.isEmpty())
+                    queue.add(null);
+            }
+            else{
+                temp.nextSibling = queue.peek();
+                if(temp.left != null)
+                    queue.add(temp.left);
+                if(temp.right != null)
+                    queue.add(temp.right);
+            }
+        }
+    }
     public static Node problem33(char[] node, int index){
         //Problem 33: Given a tree with a special property where leaves are represented with 'L' and internal node with 'I'.
         //Also, asssume that each node has either 0 or 2 children. Given preorder traversal of this tree, construct the tree.
@@ -58,6 +86,7 @@ class Main{
         new_node.right = problem33(node, index);
         return new_node;
     }
+
 
     public static void verticalSum(Node root, int column){
         if(root == null)
