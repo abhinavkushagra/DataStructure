@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Node{
     int data;
@@ -40,8 +42,9 @@ class Main{
         node11.n_sibling = node12;
         node12.n_sibling = node13;
         //System.out.println("\n"+problem36(node1));
-        int[] arr = {-1, 0, 1, 6, 6, 0, 0, 2, 7};
-        problem37(arr);
+        //int[] arr = {-1, 0, 1, 6, 6, 0, 0, 2, 7};
+        //problem37(arr);
+        System.out.println(" | "+ problem38(node1, 2) + " | ");
     }
 
     public static int problem36(Node root){
@@ -68,6 +71,28 @@ class Main{
                 maxDepth = currentDepth;
         }
         System.out.println(maxDepth);
+    }
+    public static int problem38(Node root, int node){
+        if(root == null || root.data == node || root.f_child == null)
+            return 0;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root.f_child);
+        while(!queue.isEmpty()){
+            int count_sibling = -1;
+            Node temp = queue.remove();
+            boolean flag = false;
+            while(temp != null){
+                count_sibling++;
+                if(temp.data == node)
+                    flag = true;
+                if(temp.f_child != null)
+                    queue.add(temp.f_child);
+                temp = temp.n_sibling;
+            }
+            if(flag)
+                return count_sibling;
+        }
+        return 0;  
     }
     
 }
