@@ -39,7 +39,9 @@ class Main{
         node9.n_sibling = node10;
         node11.n_sibling = node12;
         node12.n_sibling = node13;
-        System.out.println("\n"+problem36(node1));
+        //System.out.println("\n"+problem36(node1));
+        int[] arr = {-1, 0, 1, 6, 6, 0, 0, 2, 7};
+        problem37(arr);
     }
 
     public static int problem36(Node root){
@@ -51,4 +53,21 @@ class Main{
         return root.data + problem36(root.f_child) + problem36(root.n_sibling);
     }
 
+    public static void problem37(int[] nodes){
+        //Given a parent array P, where P[i] denotes the parent of ith node in the tree. Give an algorithm for finding the height 
+        //or depth of the tree
+        int currentDepth, maxDepth = -1;
+        for(int i = 0; i < nodes.length; i++){
+            currentDepth = 0;
+            int j = i;
+            while(nodes[j] != -1){
+                currentDepth++;
+                j = nodes[j];
+            }
+            if(currentDepth > maxDepth)
+                maxDepth = currentDepth;
+        }
+        System.out.println(maxDepth);
+    }
+    
 }
