@@ -44,7 +44,7 @@ class Main{
         //System.out.println("\n"+problem36(node1));
         //int[] arr = {-1, 0, 1, 6, 6, 0, 0, 2, 7};
         //problem37(arr);
-        System.out.println(" | "+ problem38(node1, 2) + " | ");
+        System.out.println(" | "+ problem41(node1, 2) + " | ");
     }
 
     public static int problem36(Node root){
@@ -72,7 +72,8 @@ class Main{
         }
         System.out.println(maxDepth);
     }
-    public static int problem38(Node root, int node){
+    public static int problem40(Node root, int node){
+        //Given a node in the generic tree, give an algorithm for counting the number of siblings for that node.
         if(root == null || root.data == node || root.f_child == null)
             return 0;
         Queue<Node> queue = new LinkedList<>();
@@ -94,5 +95,33 @@ class Main{
         }
         return 0;  
     }
-    
+    public static int problem41(Node root, int node){
+        //Given a node in the generic tree, give an algorithm for counting numbers of children for that node
+        if(root == null || root.f_child == null)
+            return 0;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            int count_children = 0;
+            Node temp = queue.remove();
+            boolean flag = false;
+            while(temp != null){
+                if(temp.data == node){
+                    flag = true;
+                    temp = temp.f_child;
+                    while(temp != null){
+                        count_children++;
+                        temp = temp.n_sibling;
+                    }
+                    break;
+                }
+                else if(temp.f_child != null)
+                    queue.add(temp.f_child);
+                temp = temp.n_sibling;
+            }
+            if(flag)
+                return count_children;
+        }
+        return 0;
+    }
 }
