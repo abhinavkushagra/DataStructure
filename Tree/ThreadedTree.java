@@ -30,6 +30,55 @@ class Main{
         node3.left = node1;
         node3.rtag = 5;
         node3.right = node5;
-        node1.ltag = 
+        node1.ltag = 0;
+        node1.left = node6;
+        node1.rtag = 0;
+        node1.right = node3;
+        node5.ltag = 0;
+        node5.left = node3;
+        node5.rtag = 0;
+        node5.right = node6;
+        node8.ltag = 1;
+        node8.left = node7;
+        node8.rtag = 1;
+        node8.right = node11;
+        node7.ltag = 0;
+        node7.left = node6;
+        node7.rtag = 0;
+        node7.right = node8;
+        node11.ltag = 1;
+        node11.left = node9;
+        node11.rtag = 1;
+        node11.right = node13;
+        node9.ltag = 0;
+        node9.left = node8;
+        node9.rtag = 0;
+        node9.right = node11;
+        node13.ltag = 0;
+        node13.left = node11;
+        node13.rtag = 1;
+        node13.right = node6;
+        Node root = node1;
+        inorderTraversal(root);
+    }
+
+    public static Node inorderSuccessor(Node node){
+        if(node.rtag == 0)
+            return node.right;
+        else{
+            node = node.right;
+            while(node.ltag == 1){
+                node = node.left;
+            }
+            return node; 
+        }
+    }
+    
+    public static void inorderTraversal(Node root){
+        Node temp = inorderSuccessor(root);
+        while(temp.right != root){
+            temp = inorderSuccessor(temp);
+            System.out.print(temp.data + "->");
+        }
     }
 }
