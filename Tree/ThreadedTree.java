@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 class Node{
     Node left = null;
@@ -6,6 +5,9 @@ class Node{
     int data;
     int rtag = 0;
     Node right = null;
+    Node(){
+
+    }
     Node(int data){
         this.data = data;
     }
@@ -13,6 +15,7 @@ class Node{
 
 class Main{
     public static void main(String... args) {
+        Node head = new Node();
         Node node1 = new Node(1);
         Node node3 = new Node(3);
         Node node5 = new Node(5);
@@ -22,16 +25,20 @@ class Main{
         Node node9 = new Node(9);
         Node node11 = new Node(11);
         Node node13 = new Node(13);
+        head.ltag = 1;
+        head.left = node6;
+        head.rtag = 1;
+        head.right = head;
         node6.ltag = 1;
         node6.left = node3;
         node6.rtag = 1;
         node6.right = node8;
         node3.ltag = 1;
         node3.left = node1;
-        node3.rtag = 5;
+        node3.rtag = 1;
         node3.right = node5;
         node1.ltag = 0;
-        node1.left = node6;
+        node1.left = head;
         node1.rtag = 0;
         node1.right = node3;
         node5.ltag = 0;
@@ -56,10 +63,9 @@ class Main{
         node9.right = node11;
         node13.ltag = 0;
         node13.left = node11;
-        node13.rtag = 1;
-        node13.right = node6;
-        Node root = node1;
-        inorderTraversal(root);
+        node13.rtag = 0;
+        node13.right = head;
+        inorderTraversal(head);
     }
 
     public static Node inorderSuccessor(Node node){
@@ -76,9 +82,9 @@ class Main{
     
     public static void inorderTraversal(Node root){
         Node temp = inorderSuccessor(root);
-        while(temp.right != root){
-            temp = inorderSuccessor(temp);
+        while(temp != root){
             System.out.print(temp.data + "->");
+            temp = inorderSuccessor(temp);
         }
     }
 }
